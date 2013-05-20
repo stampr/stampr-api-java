@@ -427,21 +427,55 @@ public class Stampr {
 		return batches;
 	}
 	
+	/**
+	 * Get batches paged
+	 * @param status
+	 * @param start
+	 * @param end
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
 	public Batch[] listBatchesPaged(Status status, Integer start, Integer end) throws ClientProtocolException, IOException
 	{
 		return listBatchesPaged(status, start, end, null);
 	}
 	
+	/**
+	 * Get batches paged
+	 * @param status
+	 * @param start
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
 	public Batch[] listBatchesPaged(Status status, Integer start) throws ClientProtocolException, IOException
 	{
 		return listBatchesPaged(status, start, null, null);
 	}
 	
+	/**
+	 * Get batches paged
+	 * @param status
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
 	public Batch[] listBatchesPaged(Status status) throws ClientProtocolException, IOException
 	{
 		return listBatchesPaged(status, null, null, null);
 	}
 	
+	/**
+	 * Get batches paged
+	 * @param status
+	 * @param start
+	 * @param end
+	 * @param paging
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
 	public Batch[] listBatchesPaged(Status status, Integer start, Integer end, Integer paging) throws ClientProtocolException, IOException
 	{
 		notNull(status, "status");
