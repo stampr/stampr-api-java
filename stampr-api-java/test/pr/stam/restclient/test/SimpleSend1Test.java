@@ -28,7 +28,8 @@ public class SimpleSend1Test {
 			Config config = stampr.createConfig();
 			Batch batch = stampr.createBatch(config, "<html>Hello {{name}}!</html>", null);
 			
-			for(int i=1;i<1000;i++)
+			//send 10 mailings
+			for(int i=1;i<10;i++)
 			{
 				MailingRequest mailingRequest = new MailingRequest(batch, "return adress", "from address", "{ name: \"Marie\" }");
 //				batch.addMailingRequest(mailingRequest);
