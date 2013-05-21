@@ -50,6 +50,14 @@ public class ListMailingTest {
 			Mailing[] mailings6 = stampr.listBatchMailings(batch.getBatch_id(),start,end);
 			Mailing[] mailings7 = stampr.listBatchMailings(batch.getBatch_id(),start,end,paging);
 			
+			Mailing[] mailings8 = stampr.listMailings(status);
+			Mailing[] mailings9 = stampr.listMailings(status,start);
+			Mailing[] mailings10 = stampr.listMailings(status,start,end);
+			Mailing[] mailings11 = stampr.listMailings(status,start,end,paging);
+			Mailing[] mailings12 = stampr.listMailings(start);
+			Mailing[] mailings13 = stampr.listMailings(start,end);
+			Mailing[] mailings14 = stampr.listMailings(start,end,paging);
+			
 		}catch(Exception e)
 		{
 			e.printStackTrace();
