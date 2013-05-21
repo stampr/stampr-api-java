@@ -576,6 +576,45 @@ public class Stampr {
 		
 	}
 	
+	
+	
+	/**
+	 * Create a new Mailing Object
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing createMailing(
+			/*required*/ Batch batch,
+			/*required*/ String address,
+			/*required*/ String returnAddress,
+			/*required*/ Format format,
+			/*optional*/ String data,
+			/*optional*/ String md5) throws ClientProtocolException, IOException 
+	{
+		
+		notNull(batch, "batch");
+		notNull(address, "address");
+		notNull(returnAddress, "returnAddress");
+		notNull(format, "format");
+		
+		List <NameValuePair> nvps = new ArrayList<NameValuePair>();
+	    nvps.add(new BasicNameValuePair("batch_id", String.valueOf(batch.getBatch_id())));
+	    nvps.add(new BasicNameValuePair("address", address));
+	    nvps.add(new BasicNameValuePair("returnaddress", returnAddress));
+	    nvps.add(new BasicNameValuePair("format", format.value));
+	    
+	    if(data!=null&&data.trim().length()>0)
+	    nvps.add(new BasicNameValuePair("data", data));
+	    
+	    if(md5!=null&&md5.trim().length()>0)
+		nvps.add(new BasicNameValuePair("md5", md5));
+		
+		String json = getPOSTResponseText(URL_CREATE_MAILING, nvps);
+		Mailing mailing = gson.fromJson(json, Mailing.class);
+		return mailing;
+	}
+	
 	/**
 	 * Get the list of mailings in a batch
 	 * @param batch_id
@@ -586,9 +625,9 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listMailings(Integer batch_id,Status status, String start, String end) throws ClientProtocolException, IOException
+	public Mailing[] listBatchMailings(Integer batch_id,Status status, String start, String end) throws ClientProtocolException, IOException
 	{
-		return listMailings(batch_id, status, start, end, null);
+		return listBatchMailings(batch_id, status, start, end, null);
 	}
 	
 	/**
@@ -600,9 +639,9 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listMailings(Integer batch_id,Status status, String start) throws ClientProtocolException, IOException
+	public Mailing[] listBatchMailings(Integer batch_id,Status status, String start) throws ClientProtocolException, IOException
 	{
-		return listMailings(batch_id, status, start, null, null);
+		return listBatchMailings(batch_id, status, start, null, null);
 	}
 	
 	/**
@@ -613,9 +652,9 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listMailings(Integer batch_id,Status status) throws ClientProtocolException, IOException
+	public Mailing[] listBatchMailings(Integer batch_id,Status status) throws ClientProtocolException, IOException
 	{
-		return listMailings(batch_id, status, null, null, null);
+		return listBatchMailings(batch_id, status, null, null, null);
 	}
 	
 	/**
@@ -625,57 +664,14 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listMailings(Integer batch_id) throws ClientProtocolException, IOException
+	public Mailing[] listBatchMailings(Integer batch_id) throws ClientProtocolException, IOException
 	{
-		return listMailings(batch_id, null, null, null, null);
+		return listBatchMailings(batch_id, null, null, null, null);
 	}
 	
 	/**
 	 * Get the list of mailings in a batch
 	 * @param batch_id
-	 * @param start
-	 * @param end
-	 * @param paging
-	 * @return
-	 * @throws ClientProtocolException
-	 * @throws IOException
-	 */
-	public Mailing[] listMailings(Integer batch_id, String start, String end, Integer paging) throws ClientProtocolException, IOException
-	{
-		return listMailings(batch_id, null, start, end, paging);
-	}
-	
-	/**
-	 * Get the list of mailings in a batch
-	 * @param batch_id
-	 * @param start
-	 * @param end
-	 * @return
-	 * @throws ClientProtocolException
-	 * @throws IOException
-	 */
-	public Mailing[] listMailings(Integer batch_id, String start, String end) throws ClientProtocolException, IOException
-	{
-		return listMailings(batch_id, null, start, end, null);
-	}
-	
-	/**
-	 * Get the list of mailings in a batch
-	 * @param batch_id
-	 * @param start
-	 * @return
-	 * @throws ClientProtocolException
-	 * @throws IOException
-	 */
-	public Mailing[] listMailings(Integer batch_id, String start) throws ClientProtocolException, IOException
-	{
-		return listMailings(batch_id, null, start, null, null);
-	}
-	
-	/**
-	 * Get the list of mailings in a batch
-	 * @param batch_id
-	 * @param status
 	 * @param start
 	 * @param end
 	 * @param paging
@@ -683,7 +679,50 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listMailings(Integer batch_id,Status status, String start, String end, Integer paging) throws ClientProtocolException, IOException
+	public Mailing[] listBatchMailings(Integer batch_id, String start, String end, Integer paging) throws ClientProtocolException, IOException
+	{
+		return listBatchMailings(batch_id, null, start, end, paging);
+	}
+	
+	/**
+	 * Get the list of mailings in a batch
+	 * @param batch_id
+	 * @param start
+	 * @param end
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listBatchMailings(Integer batch_id, String start, String end) throws ClientProtocolException, IOException
+	{
+		return listBatchMailings(batch_id, null, start, end, null);
+	}
+	
+	/**
+	 * Get the list of mailings in a batch
+	 * @param batch_id
+	 * @param start
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listBatchMailings(Integer batch_id, String start) throws ClientProtocolException, IOException
+	{
+		return listBatchMailings(batch_id, null, start, null, null);
+	}
+	
+	/**
+	 * Get the list of mailings in a batch
+	 * @param batch_id
+	 * @param status
+	 * @param start
+	 * @param end
+	 * @param paging
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listBatchMailings(Integer batch_id,Status status, String start, String end, Integer paging) throws ClientProtocolException, IOException
 	{
 		notNull(batch_id, "batch_id");
 		
@@ -724,43 +763,6 @@ public class Stampr {
 		Mailing[] mailings = gson.fromJson(json,(new Mailing[0]).getClass());
 		
 		return mailings;
-	}
-	
-	/**
-	 * Create a new Mailing Object
-	 * @return
-	 * @throws ClientProtocolException
-	 * @throws IOException
-	 */
-	public Mailing createMailing(
-			/*required*/ Batch batch,
-			/*required*/ String address,
-			/*required*/ String returnAddress,
-			/*required*/ Format format,
-			/*optional*/ String data,
-			/*optional*/ String md5) throws ClientProtocolException, IOException 
-	{
-		
-		notNull(batch, "batch");
-		notNull(address, "address");
-		notNull(returnAddress, "returnAddress");
-		notNull(format, "format");
-		
-		List <NameValuePair> nvps = new ArrayList<NameValuePair>();
-	    nvps.add(new BasicNameValuePair("batch_id", String.valueOf(batch.getBatch_id())));
-	    nvps.add(new BasicNameValuePair("address", address));
-	    nvps.add(new BasicNameValuePair("returnaddress", returnAddress));
-	    nvps.add(new BasicNameValuePair("format", format.value));
-	    
-	    if(data!=null&&data.trim().length()>0)
-	    nvps.add(new BasicNameValuePair("data", data));
-	    
-	    if(md5!=null&&md5.trim().length()>0)
-		nvps.add(new BasicNameValuePair("md5", md5));
-		
-		String json = getPOSTResponseText(URL_CREATE_MAILING, nvps);
-		Mailing mailing = gson.fromJson(json, Mailing.class);
-		return mailing;
 	}
 
 	/**

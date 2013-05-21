@@ -22,10 +22,18 @@ public class ListBatchTest {
 //			Batch[] listBatchesPaged(Status status, Integer start, Integer end)
 //			Batch[] listBatchesPaged(Status status, Integer start, Integer end, Integer paging)
 
-			Batch[] batches = stampr.listBatches(Status.PROCESSING);
+			Status status = Status.PROCESSING;
+			String start = "";
+			String end = "";
+			int paging = 1;
 			
-			System.out.println("List Batches: " + batches);
-			
+			Batch[] batches0 = stampr.listBatches(Status.PROCESSING);
+			Batch[] batches1 = stampr.listBatches(Status.PROCESSING,start);
+			Batch[] batches2 = stampr.listBatches(Status.PROCESSING,start,end);
+			Batch[] batches3 = stampr.listBatches(Status.PROCESSING,start,end,paging);
+			Batch[] batches4 = stampr.listBatches(start);
+			Batch[] batches5 = stampr.listBatches(start,end);
+			Batch[] batches6 = stampr.listBatches(start,end,paging);
 			
 		}catch(Exception e)
 		{
