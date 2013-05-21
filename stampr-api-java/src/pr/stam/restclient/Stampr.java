@@ -302,13 +302,14 @@ public class Stampr {
 	 * @throws IOException 
 	 * @throws ClientProtocolException 
 	 */
-	public Config[] getConfigById(Integer config_id) throws ClientProtocolException, IOException
+	public Config getConfigById(Integer config_id) throws ClientProtocolException, IOException
 	{
 		notNull(config_id, "config_id");
 		String json = getGETResponseText(fillCallParameters(URL_LIST_CONFIGS_ID,config_id));
 		if(json==null||json.trim().length()==0) return null;
 		Config[] configs = gson.fromJson(json,(new Config[0]).getClass());
-		return configs;
+		if(configs==null||configs.length==0) return null;
+		return configs[0];
 	}
 	
 	/**
@@ -418,13 +419,14 @@ public class Stampr {
 	 * @throws IOException 
 	 * @throws ClientProtocolException 
 	 */
-	public Batch[] getBatchById(Integer batch_id) throws ClientProtocolException, IOException
+	public Batch getBatchById(Integer batch_id) throws ClientProtocolException, IOException
 	{
 		notNull(batch_id, "batch_id");
 		String json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_ID,batch_id));
 		if(json==null||json.trim().length()==0) return null;
 		Batch[] batches = gson.fromJson(json,(new Batch[0]).getClass());
-		return batches;
+		if(batches==null||batches.length==0) return null;
+		return batches[0];
 	}
 	
 	/**

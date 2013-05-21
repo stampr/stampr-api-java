@@ -35,9 +35,9 @@ public class ListBatchTest {
 			System.out.println(batch);
 			
 			//LISTS
-			Batch[] batch1 = stampr.getBatchById(batch.getBatch_id());
+			Batch batch1 = stampr.getBatchById(batch.getBatch_id());
 			Assert.assertNotNull(batch1);
-			System.out.println(Arrays.toString(batch1));
+			System.out.println(batch1);
 			
 //			Config[] config3 = serviceClient.listConfigsPaged(1);
 //			Assert.assertNotNull(config3);

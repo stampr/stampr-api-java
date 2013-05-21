@@ -28,9 +28,9 @@ public class ListConfigTest {
 //			Assert.assertNotNull(config1);
 //			System.out.println(config1);
 			
-			Config[] config2 = stampr.getConfigById(1000);
+			Config config2 = stampr.getConfigById(1000);
 			Assert.assertNotNull(config2);
-			System.out.println(Arrays.toString(config2));
+			System.out.println(config2);
 			
 //			Config[] config3 = serviceClient.listConfigsPaged(1);
 //			Assert.assertNotNull(config3);
