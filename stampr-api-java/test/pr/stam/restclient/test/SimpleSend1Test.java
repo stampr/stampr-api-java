@@ -6,6 +6,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import pr.stam.restclient.Stampr;
+import pr.stam.restclient.Stampr.Format;
 import pr.stam.restclient.request.MailingRequest;
 import pr.stam.restclient.response.Batch;
 import pr.stam.restclient.response.Config;
@@ -29,6 +30,7 @@ public class SimpleSend1Test {
 			Batch batch = stampr.createBatch(config, "<html>Hello {{name}}!</html>", null);
 			
 			//send 10 mailings
+			//Create mailing using mailingRequests
 			for(int i=1;i<10;i++)
 			{
 				MailingRequest mailingRequest = new MailingRequest(batch, "return adress", "from address", "{ name: \"Marie\" }");
@@ -38,7 +40,11 @@ public class SimpleSend1Test {
 				Assert.assertNotNull(mailing);
 			}
 			
-//			batch.send();
+			//Create mailing using stampr.createMailing
+			Mailing mailing = stampr.createMailing(batch, "return adress", "from address",Format.PDF, "{ name: \"Marie\" }", null);
+			System.out.println("Mailing");
+			boolean deleted = stampr.deleteMailing(mailing.getMailing_id());
+			System.out.println("Deleted:"+deleted);
 			
 		}catch(Exception e)
 		{

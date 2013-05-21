@@ -49,7 +49,7 @@ public class Stampr {
 	//BATCH RELATED
 	private static final String URL_CREATE_BATCH="/api/batches";
 	private static final String URL_MODIFY_BATCH_ID = "/api/batches/{0}";
-	private static final String URL_DELETE_BATCH_ID = "/api/batches/{0}";
+	private static final String URL_DELETE_BATCH_ID = "/api/batches/{0}";//DELETE
 	private static final String URL_LIST_BATCH_ID = "api/batches/{0}";//GET /api/batches/:id
 	private static final String URL_LIST_BATCH_STATUS = "api/batches/{0}"; //GET /api/batches/:status
 	private static final String URL_LIST_BATCH_STATUS_START = "api/batches/{0}/{1}"; //GET /api/batches/:status/:start
@@ -59,11 +59,9 @@ public class Stampr {
 	private static final String URL_LIST_BATCH_START_END = "api/batches/{0}/{1}";//GET /api/batches/:start/:end
 	private static final String URL_LIST_BATCH_START_END_PAGING = "api/batches/{0}/{1}/{2}";//GET /api/batches/:start/:end/:paging
 	
-
-	
 	//MAILING RELATED
 	private static final String URL_CREATE_MAILING="/api/mailings";
-
+	private static final String URL_DELETE_MAILING_ID = "/api/mailings/{0}";//DELETE/api/mailings/:id
 	private static final String URL_LIST_MAILING = "/api/batches/{0}/mailings";//GET/api/batches/:id/mailings
 	private static final String URL_LIST_MAILING_STATUS = "/api/batches/{0}/mailings/{1}";//GET/api/batches/:id/mailings/:status
 	private static final String URL_LIST_MAILING_STATUS_START = "/api/batches/{0}/mailings/{1}/{2}";//GET/api/batches/:id/mailings/:status/:start
@@ -765,6 +763,23 @@ public class Stampr {
 		return mailings;
 	}
 
+	/**
+	 * Delete Mailing by Id
+	 * @param mailing_id
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Boolean deleteMailing(Integer mailing_id) throws ClientProtocolException, IOException
+	{
+		notNull(mailing_id, "mailing_id");
+		
+		String json = getDELETEResponseText(fillCallParameters(URL_DELETE_MAILING_ID, mailing_id));
+		System.out.println("delete mailing: " + json);
+		Boolean resp = gson.fromJson(json, Boolean.class);
+		return resp;
+	}
+	
 	/**
 	 * Simple send version 1
 	 * @param from
