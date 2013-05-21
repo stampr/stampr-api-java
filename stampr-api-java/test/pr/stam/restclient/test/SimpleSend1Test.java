@@ -40,7 +40,7 @@ public class SimpleSend1Test {
 				Assert.assertNotNull(mailing);
 				
 				Mailing mailingCopy = stampr.getMailingById(mailing.getMailing_id());
-				System.out.println(mailingCopy);
+				System.out.println("Mailing copy:" + mailingCopy);
 			}
 			
 			//Create mailing using stampr.createMailing
