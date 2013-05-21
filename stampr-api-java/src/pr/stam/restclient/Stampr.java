@@ -59,11 +59,29 @@ public class Stampr {
 	private static final String URL_LIST_BATCH_START_END = "api/batches/{0}/{1}";//GET /api/batches/:start/:end
 	private static final String URL_LIST_BATCH_START_END_PAGING = "api/batches/{0}/{1}/{2}";//GET /api/batches/:start/:end/:paging
 	
+
 	
 	//MAILING RELATED
 	private static final String URL_CREATE_MAILING="/api/mailings";
-	
 
+	private static final String URL_LIST_MAILING = "/api/batches/{0}/mailings";//GET/api/batches/:id/mailings
+	private static final String URL_LIST_MAILING_STATUS = "/api/batches/{0}/mailings/{1}";//GET/api/batches/:id/mailings/:status
+	private static final String URL_LIST_MAILING_STATUS_START = "/api/batches/{0}/mailings/{1}/{2}";//GET/api/batches/:id/mailings/:status/:start
+	private static final String URL_LIST_MAILING_STATUS_START_END = "/api/batches/{0}/mailings/{1}/{2}/{3}";//GET/api/batches/:id/mailings/:status/:start/:end
+	private static final String URL_LIST_MAILING_STATUS_START_END_PAGING = "/api/batches/{0}/mailings/{1}/{2}/{3}/{4}";//GET/api/batches/:id/mailings/:status/:start/:end/:paging
+	private static final String URL_LIST_MAILING_START = "/api/batches/{0}/mailings/{1}";//GET/api/batches/:id/mailings/:start
+	private static final String URL_LIST_MAILING_START_END = "/api/batches/{0}/mailings/{1}/{2}";//GET/api/batches/:id/mailings/:start/:end
+	private static final String URL_LIST_MAILING_START_END_PAGING = "/api/batches/{0}/mailings/{1}/{2}/{3}}";//GET/api/batches/:id/mailings/:start/:end/:paging
+	
+//	Mailing [] GET/api/batches/:id/mailings
+//	GET/api/batches/:id/mailings/:status
+//	GET/api/batches/:id/mailings/:status/:start
+//	GET/api/batches/:id/mailings/:status/:start/:end
+//	GET/api/batches/:id/mailings/:status/:start/:end/:paging
+//	GET/api/batches/:id/mailings/:start
+//	GET/api/batches/:id/mailings/:start/:end
+//	GET/api/batches/:id/mailings/:start/:end/:paging
+	
 	public static enum Status{
 		PROCESSING("processing"),
 		HOLD("hold"),
@@ -319,7 +337,7 @@ public class Stampr {
 	 * @throws IOException 
 	 * @throws ClientProtocolException 
 	 */
-	public Config[] listConfigsAll() throws ClientProtocolException, IOException
+	public Config[] listConfigs() throws ClientProtocolException, IOException
 	{
 		String json = getGETResponseText(URL_LIST_CONFIGS_ALL);
 		System.out.println(">>>" + json);
@@ -335,7 +353,7 @@ public class Stampr {
 	 * @throws IOException 
 	 * @throws ClientProtocolException 
 	 */
-	public Config[] listConfigsPaged(Integer paging) throws ClientProtocolException, IOException
+	public Config[] listConfigs(Integer paging) throws ClientProtocolException, IOException
 	{
 		notNull(paging, "paging");
 		String json = getGETResponseText(fillCallParameters(URL_LIST_CONFIGS_ALL_PAGING,paging));
@@ -412,7 +430,7 @@ public class Stampr {
 	}
 	
 	/**
-	 * List batch by id
+	 * Get batch by id
 	 * Returns: Batch[] (Paged Array of Batch Objects)
 	 * @param batch_id
 	 * @return
@@ -430,7 +448,7 @@ public class Stampr {
 	}
 	
 	/**
-	 * Get batches paged
+	 * Get a list of batches
 	 * @param status
 	 * @param start
 	 * @param end
@@ -438,38 +456,77 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Batch[] listBatchesPaged(Status status, Integer start, Integer end) throws ClientProtocolException, IOException
+	public Batch[] listBatches(Status status, String start, String end) throws ClientProtocolException, IOException
 	{
-		return listBatchesPaged(status, start, end, null);
+		return listBatches(status, start, end, null);
 	}
 	
 	/**
-	 * Get batches paged
+	 * Get a list of batches
 	 * @param status
 	 * @param start
 	 * @return
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Batch[] listBatchesPaged(Status status, Integer start) throws ClientProtocolException, IOException
+	public Batch[] listBatches(Status status, String start) throws ClientProtocolException, IOException
 	{
-		return listBatchesPaged(status, start, null, null);
+		return listBatches(status, start, null, null);
 	}
 	
 	/**
-	 * Get batches paged
+	 * Get a list of batches
 	 * @param status
 	 * @return
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Batch[] listBatchesPaged(Status status) throws ClientProtocolException, IOException
+	public Batch[] listBatches(String start, String end, Integer paging) throws ClientProtocolException, IOException
 	{
-		return listBatchesPaged(status, null, null, null);
+		return listBatches(null, start, end, paging);
 	}
 	
 	/**
-	 * Get batches paged
+	 * Get a list of batches
+	 * @param status
+	 * @param start
+	 * @param end
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Batch[] listBatches(String start, String end) throws ClientProtocolException, IOException
+	{
+		return listBatches(null, start, end, null);
+	}
+	
+	/**
+	 * Get a list of batches
+	 * @param status
+	 * @param start
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Batch[] listBatches(String start) throws ClientProtocolException, IOException
+	{
+		return listBatches(null, start, null, null);
+	}
+	
+	/**
+	 * Get a list of batches
+	 * @param status
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Batch[] listBatches(Status status) throws ClientProtocolException, IOException
+	{
+		return listBatches(status, null, null, null);
+	}
+	
+	/**
+	 * Get a list of batches
 	 * @param status
 	 * @param start
 	 * @param end
@@ -478,17 +535,21 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Batch[] listBatchesPaged(Status status, Integer start, Integer end, Integer paging) throws ClientProtocolException, IOException
+	public Batch[] listBatches(Status status, String start, String end, Integer paging) throws ClientProtocolException, IOException
 	{
-		notNull(status, "status");
 		
+		boolean hasStatus = status!=null;
 		boolean hasStart = start!=null;
 		boolean hasEnd = end!=null;
 		boolean hasPaging = paging!=null;
 		
-		boolean version1 = hasStart&&!hasEnd;
-		boolean version2 = !version1&&hasStart&&hasEnd&&!hasPaging;
-		boolean version3 = !version1&&!version2&&hasStart&&hasEnd&&hasPaging;
+		boolean version0 = allTrue(hasStatus,!hasStart,!hasEnd,!hasPaging);
+		boolean version1 = allTrue(hasStatus,hasStart,!hasEnd,!hasPaging);
+		boolean version2 = allTrue(hasStatus,hasStart,hasEnd,!hasPaging);
+		boolean version3 = allTrue(hasStatus,hasStart,hasEnd,hasPaging);
+		boolean version4 = allTrue(!hasStatus,hasStart,!hasEnd,!hasPaging);
+		boolean version5 = allTrue(!hasStatus,hasStart,hasEnd,!hasPaging);
+		boolean version6 = allTrue(!hasStatus,hasStart,hasEnd,hasPaging);
 		
 		String json = null;
 		
@@ -498,13 +559,171 @@ public class Stampr {
 			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_STATUS_START_END,status,start,end));
 		else if(version1)
 			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_STATUS_START,status,start));
-		else
+		else if(version0)
 			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_STATUS,status));
+		else if(version4)
+			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_START,start));
+		else if(version5)
+			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_START_END,start,end));
+		else if(version6)
+			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_START_END_PAGING,start,end,paging));
+		
+		System.out.println(">>> List " + json);
 		
 		if(json==null||json.trim().length()==0) return null;
 		Batch[] batches = gson.fromJson(json,(new Batch[0]).getClass());
 		return batches;
 		
+	}
+	
+	/**
+	 * Get the list of mailings in a batch
+	 * @param batch_id
+	 * @param status
+	 * @param start
+	 * @param end
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listMailings(Integer batch_id,Status status, String start, String end) throws ClientProtocolException, IOException
+	{
+		return listMailings(batch_id, status, start, end, null);
+	}
+	
+	/**
+	 * Get the list of mailings in a batch
+	 * @param batch_id
+	 * @param status
+	 * @param start
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listMailings(Integer batch_id,Status status, String start) throws ClientProtocolException, IOException
+	{
+		return listMailings(batch_id, status, start, null, null);
+	}
+	
+	/**
+	 * Get the list of mailings in a batch
+	 * @param batch_id
+	 * @param status
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listMailings(Integer batch_id,Status status) throws ClientProtocolException, IOException
+	{
+		return listMailings(batch_id, status, null, null, null);
+	}
+	
+	/**
+	 * Get the list of mailings in a batch
+	 * @param batch_id
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listMailings(Integer batch_id) throws ClientProtocolException, IOException
+	{
+		return listMailings(batch_id, null, null, null, null);
+	}
+	
+	/**
+	 * Get the list of mailings in a batch
+	 * @param batch_id
+	 * @param start
+	 * @param end
+	 * @param paging
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listMailings(Integer batch_id, String start, String end, Integer paging) throws ClientProtocolException, IOException
+	{
+		return listMailings(batch_id, null, start, end, paging);
+	}
+	
+	/**
+	 * Get the list of mailings in a batch
+	 * @param batch_id
+	 * @param start
+	 * @param end
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listMailings(Integer batch_id, String start, String end) throws ClientProtocolException, IOException
+	{
+		return listMailings(batch_id, null, start, end, null);
+	}
+	
+	/**
+	 * Get the list of mailings in a batch
+	 * @param batch_id
+	 * @param start
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listMailings(Integer batch_id, String start) throws ClientProtocolException, IOException
+	{
+		return listMailings(batch_id, null, start, null, null);
+	}
+	
+	/**
+	 * Get the list of mailings in a batch
+	 * @param batch_id
+	 * @param status
+	 * @param start
+	 * @param end
+	 * @param paging
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listMailings(Integer batch_id,Status status, String start, String end, Integer paging) throws ClientProtocolException, IOException
+	{
+		notNull(batch_id, "batch_id");
+		
+		boolean hasStatus = status!=null;
+		boolean hasStart = start!=null;
+		boolean hasEnd = end!=null;
+		boolean hasPaging = paging!=null;
+		
+		boolean version0 = allTrue(hasStatus,!hasStart,!hasEnd,!hasPaging);
+		boolean version1 = allTrue(hasStatus,hasStart,!hasEnd,!hasPaging);
+		boolean version2 = allTrue(hasStatus,hasStart,hasEnd,!hasPaging);
+		boolean version3 = allTrue(hasStatus,hasStart,hasEnd,hasPaging);
+		boolean version4 = allTrue(!hasStatus,hasStart,!hasEnd,!hasPaging);
+		boolean version5 = allTrue(!hasStatus,hasStart,hasEnd,!hasPaging);
+		boolean version6 = allTrue(!hasStatus,hasStart,hasEnd,hasPaging);
+		boolean version7 = allTrue(!hasStatus,!hasStart,!hasEnd,!hasPaging);
+		
+		String json = null;
+
+		if(version0)
+			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_STATUS,batch_id,status));
+		else if(version1)
+			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_STATUS_START,batch_id,status,start));
+		else if(version2)
+			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_STATUS_START_END,batch_id,status,start,end));
+		else if(version3)
+			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_STATUS_START_END_PAGING,batch_id,status,start,end,paging));
+		else if(version4)
+			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_START,batch_id,start));
+		else if(version5)
+			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_START_END,batch_id,start,end));
+		else if(version6)
+			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_START_END_PAGING,batch_id,start,end,paging));
+		else if(version7)
+			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING,batch_id));
+		
+		if(json==null||json.trim().length()==0) return null;
+		Mailing[] mailings = gson.fromJson(json,(new Mailing[0]).getClass());
+		
+		return mailings;
 	}
 	
 	/**
@@ -690,7 +909,16 @@ public class Stampr {
 		}
 		return sb.toString();
 	}
+	
 
+	private boolean allTrue(boolean... flags) {
+		boolean resp = true;
+		
+		for(boolean flag:flags)
+			resp = resp&&flag;
+		
+		return resp;
+	}
 	
 
 

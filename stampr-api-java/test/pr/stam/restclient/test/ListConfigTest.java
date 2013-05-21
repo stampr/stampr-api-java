@@ -23,13 +23,13 @@ public class ListConfigTest {
 			System.out.println("Config copy: " + configCopy);
 			
 			try{
-				Config[] allConfigs = stampr.listConfigsAll();
+				Config[] allConfigs = stampr.listConfigs();
 				System.out.println("All configs:" + allConfigs);
 			}catch(Exception e)
 			{	e.printStackTrace();}
 			
 			try{
-				Config[] allConfigs10 = stampr.listConfigsPaged(10);
+				Config[] allConfigs10 = stampr.listConfigs(10);
 				System.out.println("Page 10: " + allConfigs10);
 			}catch(Exception e)
 			{   e.printStackTrace();}
