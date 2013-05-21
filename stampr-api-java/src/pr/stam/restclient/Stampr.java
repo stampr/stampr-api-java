@@ -42,6 +42,7 @@ public class Stampr {
 	
 	//CONFIG RELATED
 	private static final String URL_CREATE_CONFIG="api/configs";
+	
 	private static final String URL_LIST_CONFIGS_ID = "api/configs/{0}";
 	private static final String URL_LIST_CONFIGS_ALL = "api/configs/all";
 	private static final String URL_LIST_CONFIGS_ALL_PAGING = "api/configs/all/{0}";
@@ -50,6 +51,7 @@ public class Stampr {
 	private static final String URL_CREATE_BATCH="/api/batches";
 	private static final String URL_MODIFY_BATCH_ID = "/api/batches/{0}";
 	private static final String URL_DELETE_BATCH_ID = "/api/batches/{0}";//DELETE
+	
 	private static final String URL_LIST_BATCH_ID = "api/batches/{0}";//GET /api/batches/:id
 	private static final String URL_LIST_BATCH_STATUS = "api/batches/{0}"; //GET /api/batches/:status
 	private static final String URL_LIST_BATCH_STATUS_START = "api/batches/{0}/{1}"; //GET /api/batches/:status/:start
@@ -60,25 +62,27 @@ public class Stampr {
 	private static final String URL_LIST_BATCH_START_END_PAGING = "api/batches/{0}/{1}/{2}";//GET /api/batches/:start/:end/:paging
 	
 	//MAILING RELATED
-	private static final String URL_CREATE_MAILING="/api/mailings";
-	private static final String URL_DELETE_MAILING_ID = "/api/mailings/{0}";//DELETE/api/mailings/:id
-	private static final String URL_LIST_MAILING = "/api/batches/{0}/mailings";//GET/api/batches/:id/mailings
-	private static final String URL_LIST_MAILING_STATUS = "/api/batches/{0}/mailings/{1}";//GET/api/batches/:id/mailings/:status
-	private static final String URL_LIST_MAILING_STATUS_START = "/api/batches/{0}/mailings/{1}/{2}";//GET/api/batches/:id/mailings/:status/:start
-	private static final String URL_LIST_MAILING_STATUS_START_END = "/api/batches/{0}/mailings/{1}/{2}/{3}";//GET/api/batches/:id/mailings/:status/:start/:end
-	private static final String URL_LIST_MAILING_STATUS_START_END_PAGING = "/api/batches/{0}/mailings/{1}/{2}/{3}/{4}";//GET/api/batches/:id/mailings/:status/:start/:end/:paging
-	private static final String URL_LIST_MAILING_START = "/api/batches/{0}/mailings/{1}";//GET/api/batches/:id/mailings/:start
-	private static final String URL_LIST_MAILING_START_END = "/api/batches/{0}/mailings/{1}/{2}";//GET/api/batches/:id/mailings/:start/:end
-	private static final String URL_LIST_MAILING_START_END_PAGING = "/api/batches/{0}/mailings/{1}/{2}/{3}}";//GET/api/batches/:id/mailings/:start/:end/:paging
+	private static final String URL_CREATE_MAILING="api/mailings";
+	private static final String URL_DELETE_MAILING_ID = "api/mailings/{0}";//DELETE/api/mailings/:id
 	
-//	Mailing [] GET/api/batches/:id/mailings
-//	GET/api/batches/:id/mailings/:status
-//	GET/api/batches/:id/mailings/:status/:start
-//	GET/api/batches/:id/mailings/:status/:start/:end
-//	GET/api/batches/:id/mailings/:status/:start/:end/:paging
-//	GET/api/batches/:id/mailings/:start
-//	GET/api/batches/:id/mailings/:start/:end
-//	GET/api/batches/:id/mailings/:start/:end/:paging
+	private static final String URL_LIST_BATCH_MAILING = "api/batches/{0}/mailings";//GET/api/batches/:id/mailings
+	private static final String URL_LIST_BATCH_MAILING_STATUS = "api/batches/{0}/mailings/{1}";//GET/api/batches/:id/mailings/:status
+	private static final String URL_LIST_BATCH_MAILING_STATUS_START = "api/batches/{0}/mailings/{1}/{2}";//GET/api/batches/:id/mailings/:status/:start
+	private static final String URL_LIST_BATCH_MAILING_STATUS_START_END = "api/batches/{0}/mailings/{1}/{2}/{3}";//GET/api/batches/:id/mailings/:status/:start/:end
+	private static final String URL_LIST_BATCH_MAILING_STATUS_START_END_PAGING = "api/batches/{0}/mailings/{1}/{2}/{3}/{4}";//GET/api/batches/:id/mailings/:status/:start/:end/:paging
+	private static final String URL_LIST_BATCH_MAILING_START = "api/batches/{0}/mailings/{1}";//GET/api/batches/:id/mailings/:start
+	private static final String URL_LIST_BATCH_MAILING_START_END = "api/batches/{0}/mailings/{1}/{2}";//GET/api/batches/:id/mailings/:start/:end
+	private static final String URL_LIST_BATCH_MAILING_START_END_PAGING = "api/batches/{0}/mailings/{1}/{2}/{3}}";//GET/api/batches/:id/mailings/:start/:end/:paging
+	
+	private static final String URL_LIST_MAILING_ID = "api/mailings/{0}";//GET/api/mailings/:id
+	private static final String URL_LIST_MAILING_STATUS = "/api/mailings/{0}";//GET/api/mailings/:status
+	private static final String URL_LIST_MAILING_STATUS_START = "/api/mailings/{0}/{1}";//GET/api/mailings/:status/:start
+	private static final String URL_LIST_MAILING_STATUS_START_END = "api/mailings/{0}/{1}/{2}";//GET/api/mailings/:status/:start/:end
+	private static final String URL_LIST_MAILING_STATUS_START_END_PAGING = "api/mailings/{0}/{1}/{2}/{3}";//GET/api/mailings/:status/:start/:end/:paging
+	private static final String URL_LIST_MAILING_START = "api/mailings/{0}";//GET/api/mailings/:start
+	private static final String URL_LIST_MAILING_START_END = "api/mailings/{0}/{1}";//GET/api/mailings/:start/:end
+	private static final String URL_LIST_MAILING_START_END_PAGING = "api/mailings/{0}/{1}/{2}";//GET/api/mailings/:start/:end/:paging
+	
 	
 	public static enum Status{
 		PROCESSING("processing"),
@@ -312,7 +316,7 @@ public class Stampr {
 	
 	/**
 	 * List config by id
-	 * Returns: Config[] (Paged Array of Config Objects)
+	 * Returns: Config
 	 * @param config_id
 	 * @return
 	 * @throws IOException 
@@ -429,7 +433,7 @@ public class Stampr {
 	
 	/**
 	 * Get batch by id
-	 * Returns: Batch[] (Paged Array of Batch Objects)
+	 * Returns: Batch
 	 * @param batch_id
 	 * @return
 	 * @throws IOException 
@@ -741,28 +745,175 @@ public class Stampr {
 		String json = null;
 
 		if(version0)
-			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_STATUS,batch_id,status));
+			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_MAILING_STATUS,batch_id,status));
 		else if(version1)
-			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_STATUS_START,batch_id,status,start));
+			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_MAILING_STATUS_START,batch_id,status,start));
 		else if(version2)
-			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_STATUS_START_END,batch_id,status,start,end));
+			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_MAILING_STATUS_START_END,batch_id,status,start,end));
 		else if(version3)
-			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_STATUS_START_END_PAGING,batch_id,status,start,end,paging));
+			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_MAILING_STATUS_START_END_PAGING,batch_id,status,start,end,paging));
 		else if(version4)
-			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_START,batch_id,start));
+			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_MAILING_START,batch_id,start));
 		else if(version5)
-			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_START_END,batch_id,start,end));
+			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_MAILING_START_END,batch_id,start,end));
 		else if(version6)
-			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_START_END_PAGING,batch_id,start,end,paging));
+			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_MAILING_START_END_PAGING,batch_id,start,end,paging));
 		else if(version7)
-			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING,batch_id));
+			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_MAILING,batch_id));
 		
 		if(json==null||json.trim().length()==0) return null;
 		Mailing[] mailings = gson.fromJson(json,(new Mailing[0]).getClass());
 		
 		return mailings;
 	}
+	
+	/**
+	 * Get mailing by id
+	 * Returns: Mailing
+	 * @param batch_id
+	 * @return
+	 * @throws IOException 
+	 * @throws ClientProtocolException 
+	 */
+	public Mailing getMailingById(Integer mailing_id) throws ClientProtocolException, IOException
+	{
+		notNull(mailing_id, "mailing_id");
+		String json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_ID,mailing_id));
+		if(json==null||json.trim().length()==0) return null;
+		Mailing[] mailing = gson.fromJson(json,(new Mailing[0]).getClass());
+		if(mailing==null||mailing.length==0) return null;
+		return mailing[0];
+	}
 
+	/**
+	 * Get the list of mailings
+	 * @param status
+	 * @param start
+	 * @param end
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listMailings(Status status, String start, String end) throws ClientProtocolException, IOException {
+		return listMailings(status, start, end, null);
+	}
+	
+	/**
+	 * Get the list of mailings
+	 * @param status
+	 * @param start
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listMailings(Status status, String start) throws ClientProtocolException, IOException {
+		return listMailings(status, start, null, null);
+	}
+	
+	/**
+	 * Get the list of mailings
+	 * @param status
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listMailings(Status status) throws ClientProtocolException, IOException {
+		return listMailings(status, null, null, null);
+	}
+	
+	/**
+	 * Get the list of mailings
+	 * @param start
+	 * @param end
+	 * @param paging
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listMailings(String start, String end,Integer paging) throws ClientProtocolException, IOException {
+		return listMailings(null, start, end, paging);
+	}
+	
+	/**
+	 * Get the list of mailings
+	 * @param start
+	 * @param end
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listMailings(String start, String end) throws ClientProtocolException, IOException {
+		return listMailings(null, start, end, null);
+	}
+	
+	/**
+	 * Get the list of mailings
+	 * @param start
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listMailings(String start) throws ClientProtocolException, IOException {
+		return listMailings(null, start, null, null);
+	}
+	
+	/**
+	 * Get the list of mailings
+	 * @param status
+	 * @param start
+	 * @param end
+	 * @param paging
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 */
+	public Mailing[] listMailings(Status status, String start, String end, Integer paging) throws ClientProtocolException, IOException
+	{
+//		private static final String URL_LIST_MAILING_STATUS = "/api/mailings/:status";//GET/api/mailings/:status
+//		private static final String URL_LIST_MAILING_STATUS_START = "/api/mailings/:status/:start";//GET/api/mailings/:status/:start
+//		private static final String URL_LIST_MAILING_STATUS_START_END = "api/mailings/:status/:start/:end";//GET/api/mailings/:status/:start/:end
+//		private static final String URL_LIST_MAILING_STATUS_START_END_PAGING = "api/mailings/:status/:start/:end/:paging";//GET/api/mailings/:status/:start/:end/:paging
+//		private static final String URL_LIST_MAILING_START = "api/mailings/:start";//GET/api/mailings/:start
+//		private static final String URL_LIST_MAILING_START_END = "api/mailings/:start/:end";//GET/api/mailings/:start/:end
+//		private static final String URL_LIST_MAILING_START_END_PAGING = "api/mailings/:start/:end/:paging";//GET/api/mailings/:start/:end/:paging
+		
+		
+		boolean hasStatus = status!=null;
+		boolean hasStart = start!=null;
+		boolean hasEnd = end!=null;
+		boolean hasPaging = paging!=null;
+		
+		boolean version0 = allTrue(hasStatus,!hasStart,!hasEnd,!hasPaging);
+		boolean version1 = allTrue(hasStatus,hasStart,!hasEnd,!hasPaging);
+		boolean version2 = allTrue(hasStatus,hasStart,hasEnd,!hasPaging);
+		boolean version3 = allTrue(hasStatus,hasStart,hasEnd,hasPaging);
+		boolean version4 = allTrue(!hasStatus,hasStart,!hasEnd,!hasPaging);
+		boolean version5 = allTrue(!hasStatus,hasStart,hasEnd,!hasPaging);
+		boolean version6 = allTrue(!hasStatus,hasStart,hasEnd,hasPaging);
+		
+		String json = null;
+
+		if(version0)
+			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_STATUS,status));
+		else if(version1)
+			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_STATUS_START,status,start));
+		else if(version2)
+			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_STATUS_START_END,status,start,end));
+		else if(version3)
+			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_STATUS_START_END_PAGING,status,start,end,paging));
+		else if(version4)
+			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_START,start));
+		else if(version5)
+			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_START_END,start,end));
+		else if(version6)
+			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_START_END_PAGING,start,end,paging));
+		
+		if(json==null||json.trim().length()==0) return null;
+		Mailing[] mailings = gson.fromJson(json,(new Mailing[0]).getClass());
+		
+		return mailings;
+	}
+	
 	/**
 	 * Delete Mailing by Id
 	 * @param mailing_id
