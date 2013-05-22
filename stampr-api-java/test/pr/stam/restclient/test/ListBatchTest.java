@@ -2,6 +2,8 @@ package pr.stam.restclient.test;
 
 import static org.junit.Assert.fail;
 
+import java.util.Date;
+
 import org.junit.Test;
 
 import pr.stam.restclient.Stampr;
@@ -23,8 +25,8 @@ public class ListBatchTest {
 //			Batch[] listBatchesPaged(Status status, Integer start, Integer end, Integer paging)
 
 			Status status = Status.PROCESSING;
-			String start = "";
-			String end = "";
+			Date start = new Date();
+			Date end = new Date();
 			int paging = 1;
 			
 			Batch[] batches0 = stampr.listBatches(Status.PROCESSING);

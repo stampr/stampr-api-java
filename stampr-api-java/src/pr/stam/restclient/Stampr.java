@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
@@ -36,6 +38,8 @@ public class Stampr {
 	
 	private HttpClient httpClient = new DefaultHttpClient();
 	private Gson gson = new Gson();
+	
+	private final SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 	
 	private static final String URL_PING = "api/test/ping";
 	private static final String URL_HEALTH = "api/health";
@@ -83,6 +87,7 @@ public class Stampr {
 	private static final String URL_LIST_MAILING_START_END = "api/mailings/{0}/{1}";//GET/api/mailings/:start/:end
 	private static final String URL_LIST_MAILING_START_END_PAGING = "api/mailings/{0}/{1}/{2}";//GET/api/mailings/:start/:end/:paging
 	
+	private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";//YYYY-MM-DD HH:mm:ss
 	
 	public static enum Status{
 		PROCESSING("processing"),
@@ -458,7 +463,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Batch[] listBatches(Status status, String start, String end) throws ClientProtocolException, IOException
+	public Batch[] listBatches(Status status, Date start, Date end) throws ClientProtocolException, IOException
 	{
 		return listBatches(status, start, end, null);
 	}
@@ -471,7 +476,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Batch[] listBatches(Status status, String start) throws ClientProtocolException, IOException
+	public Batch[] listBatches(Status status, Date start) throws ClientProtocolException, IOException
 	{
 		return listBatches(status, start, null, null);
 	}
@@ -483,7 +488,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Batch[] listBatches(String start, String end, Integer paging) throws ClientProtocolException, IOException
+	public Batch[] listBatches(Date start, Date end, Integer paging) throws ClientProtocolException, IOException
 	{
 		return listBatches(null, start, end, paging);
 	}
@@ -497,7 +502,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Batch[] listBatches(String start, String end) throws ClientProtocolException, IOException
+	public Batch[] listBatches(Date start, Date end) throws ClientProtocolException, IOException
 	{
 		return listBatches(null, start, end, null);
 	}
@@ -510,7 +515,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Batch[] listBatches(String start) throws ClientProtocolException, IOException
+	public Batch[] listBatches(Date start) throws ClientProtocolException, IOException
 	{
 		return listBatches(null, start, null, null);
 	}
@@ -537,7 +542,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Batch[] listBatches(Status status, String start, String end, Integer paging) throws ClientProtocolException, IOException
+	public Batch[] listBatches(Status status, Date start, Date end, Integer paging) throws ClientProtocolException, IOException
 	{
 		
 		boolean hasStatus = status!=null;
@@ -627,7 +632,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listBatchMailings(Integer batch_id,Status status, String start, String end) throws ClientProtocolException, IOException
+	public Mailing[] listBatchMailings(Integer batch_id,Status status, Date start, Date end) throws ClientProtocolException, IOException
 	{
 		return listBatchMailings(batch_id, status, start, end, null);
 	}
@@ -641,7 +646,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listBatchMailings(Integer batch_id,Status status, String start) throws ClientProtocolException, IOException
+	public Mailing[] listBatchMailings(Integer batch_id,Status status, Date start) throws ClientProtocolException, IOException
 	{
 		return listBatchMailings(batch_id, status, start, null, null);
 	}
@@ -681,7 +686,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listBatchMailings(Integer batch_id, String start, String end, Integer paging) throws ClientProtocolException, IOException
+	public Mailing[] listBatchMailings(Integer batch_id, Date start, Date end, Integer paging) throws ClientProtocolException, IOException
 	{
 		return listBatchMailings(batch_id, null, start, end, paging);
 	}
@@ -695,7 +700,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listBatchMailings(Integer batch_id, String start, String end) throws ClientProtocolException, IOException
+	public Mailing[] listBatchMailings(Integer batch_id, Date start, Date end) throws ClientProtocolException, IOException
 	{
 		return listBatchMailings(batch_id, null, start, end, null);
 	}
@@ -708,7 +713,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listBatchMailings(Integer batch_id, String start) throws ClientProtocolException, IOException
+	public Mailing[] listBatchMailings(Integer batch_id, Date start) throws ClientProtocolException, IOException
 	{
 		return listBatchMailings(batch_id, null, start, null, null);
 	}
@@ -724,7 +729,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listBatchMailings(Integer batch_id,Status status, String start, String end, Integer paging) throws ClientProtocolException, IOException
+	public Mailing[] listBatchMailings(Integer batch_id,Status status, Date start, Date end, Integer paging) throws ClientProtocolException, IOException
 	{
 		notNull(batch_id, "batch_id");
 		
@@ -794,7 +799,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listMailings(Status status, String start, String end) throws ClientProtocolException, IOException {
+	public Mailing[] listMailings(Status status, Date start, Date end) throws ClientProtocolException, IOException {
 		return listMailings(status, start, end, null);
 	}
 	
@@ -806,7 +811,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listMailings(Status status, String start) throws ClientProtocolException, IOException {
+	public Mailing[] listMailings(Status status, Date start) throws ClientProtocolException, IOException {
 		return listMailings(status, start, null, null);
 	}
 	
@@ -830,7 +835,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listMailings(String start, String end,Integer paging) throws ClientProtocolException, IOException {
+	public Mailing[] listMailings(Date start, Date end,Integer paging) throws ClientProtocolException, IOException {
 		return listMailings(null, start, end, paging);
 	}
 	
@@ -842,7 +847,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listMailings(String start, String end) throws ClientProtocolException, IOException {
+	public Mailing[] listMailings(Date start, Date end) throws ClientProtocolException, IOException {
 		return listMailings(null, start, end, null);
 	}
 	
@@ -853,7 +858,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listMailings(String start) throws ClientProtocolException, IOException {
+	public Mailing[] listMailings(Date start) throws ClientProtocolException, IOException {
 		return listMailings(null, start, null, null);
 	}
 	
@@ -867,7 +872,7 @@ public class Stampr {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public Mailing[] listMailings(Status status, String start, String end, Integer paging) throws ClientProtocolException, IOException
+	public Mailing[] listMailings(Status status, Date start, Date end, Integer paging) throws ClientProtocolException, IOException
 	{
 //		private static final String URL_LIST_MAILING_STATUS = "/api/mailings/:status";//GET/api/mailings/:status
 //		private static final String URL_LIST_MAILING_STATUS_START = "/api/mailings/:status/:start";//GET/api/mailings/:status/:start
@@ -1046,7 +1051,10 @@ public class Stampr {
 		String newString = string;
 		for(int i=0;i<replacements.length;i++)
 		{
-			newString = replaceAll(newString, "{".concat(String.valueOf(i)).concat("}"),String.valueOf(replacements[i]));
+			Object object = replacements[i];
+			boolean isDate = object instanceof Date;
+			String objectS = isDate?dateFormat.format((Date)object):String.valueOf(replacements[i]);
+			newString = replaceAll(newString, "{".concat(String.valueOf(i)).concat("}"),objectS);
 		}
 		return newString;
 	}

@@ -1,6 +1,9 @@
 package pr.stam.restclient.test;
 
 import static org.junit.Assert.fail;
+
+import java.util.Date;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -23,8 +26,8 @@ public class ListMailingTest {
 			
 			Status status = Status.HOLD;
 			Integer paging = 1;
-			String start = "";
-			String end = "";
+			Date start = new Date();
+			Date end = new Date();
 			
 			String health = stampr.health();
 			System.out.println(health);
