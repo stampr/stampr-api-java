@@ -29,7 +29,11 @@ import pr.stam.restclient.response.Mailing;
 
 import com.google.gson.Gson;
 
-
+/**
+ * Stampr web services client 
+ * @author JMpaz
+ *
+ */
 public class Stampr {
 	
 	private final String apiUrl = "https://testing.dev.stam.pr/";
@@ -575,7 +579,7 @@ public class Stampr {
 		else if(version6)
 			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_START_END_PAGING,start,end,paging));
 		
-		System.out.println(">>> List " + json);
+		System.out.println(">>> List batches: " + json);
 		
 		if(json==null||json.trim().length()==0) return null;
 		Batch[] batches = gson.fromJson(json,(new Batch[0]).getClass());
@@ -767,6 +771,8 @@ public class Stampr {
 			json = getGETResponseText(fillCallParameters(URL_LIST_BATCH_MAILING,batch_id));
 		
 		if(json==null||json.trim().length()==0) return null;
+		
+		System.out.println(">>> list batch mailings:"+json);
 		Mailing[] mailings = gson.fromJson(json,(new Mailing[0]).getClass());
 		
 		return mailings;
@@ -914,6 +920,8 @@ public class Stampr {
 			json = getGETResponseText(fillCallParameters(URL_LIST_MAILING_START_END_PAGING,start,end,paging));
 		
 		if(json==null||json.trim().length()==0) return null;
+		
+		System.out.println(">>> list mailings:"+json);
 		Mailing[] mailings = gson.fromJson(json,(new Mailing[0]).getClass());
 		
 		return mailings;
